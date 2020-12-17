@@ -1,32 +1,32 @@
-# Caesar Cipher - Encrypts/Decrypts words using uppercase and lowercase letters, numbers, and symbols.
+# Caesar Cipher - Encrypts/Decrypts phrases using English dictionary. Numbers and symbols will result in a decryption since it's not a english word.
 
 import enchant
 
 # The string to be encrypted/decrypted:
-word = input('Enter word: ')
+message = input('Enter message: ').upper()
 
-# Checking if the message is in the English dictionary.
-d = enchant.Dict("en_US")
-enDict = d.check(word)
+# Checking if the message is in the English Dictionary to encrypt/decrypt.
+for word in message.split():
+	d = enchant.Dict("en_US")
+	enDict = d.check(word)
+	# Whether the program encrypts or decrypts:
+	if enDict:
+		mode = 'encrypt'
+	else:
+		mode = 'decrypt'
 
 # The encryption/decyption key:
-key = 13
-
-# Whether the program encrypts or decrypts:
-if enDict:
-	mode = 'encrypt'
-else:
-	mode = 'decrypt'
+key = 2
 
 # Every possible symbol that can be encrypted:
-SYMBOLS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890`~!@#$%^&*_+-='
+SYMBOLS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 # Store the encrypted/decrypted form of the message:
 translated = ''
 
 translatedIndex = 0
 
-for symbol in word:
+for symbol in message:
 	# Checking to see if the letter is in the given alphabet above (SYMBOLS).
 	if symbol in SYMBOLS:
 		symbolIndex = SYMBOLS.find(symbol)
